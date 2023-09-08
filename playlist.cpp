@@ -4,6 +4,16 @@ using namespace std;
 
 PlayList::PlayList(){}
 
+PlayList::PlayList(const PlayList &playlist){
+    this->numberOfSongs = playlist.numberOfSongs;
+    this->songIndex = playlist.songIndex;
+    this->capacity = playlist.capacity;
+    this->playlist = (Song *)calloc(this->capacity , sizeof(Song));
+    for(int i = 0 ; i < this->numberOfSongs ; i++){
+        this->playlist[i] = playlist.playlist[i];
+    }
+}
+
 PlayList::~PlayList(){
     free(this->playlist);
 }
@@ -71,6 +81,16 @@ PlayList PlayList::operator-(const Song &s){
     PlayList playlist = *this;
     playlist.deleteSong(s);
     return playlist;
+}
+
+PlayList PlayList::operator=(const PlayList & playlist){
+    this->numberOfSongs = playlist.numberOfSongs;
+    this->songIndex = playlist.songIndex;
+    this->capacity = playlist.capacity;
+    this->playlist = (Song *)realloc(this->playlist , sizeof(Song)*this->capacity);
+    for(int i = 0 ; i < this->numberOfSongs ; i++){
+        this->playlist[i] = playlist.playlist[i];
+    }    return *this;
 }
 
 void PlayList::doubleSize(){

@@ -8,6 +8,7 @@ using namespace std;
 class PlayList{
 public:
     PlayList();
+    PlayList(const PlayList &playlist);
     ~PlayList();
     void play();
     void play(int num);
@@ -17,6 +18,7 @@ public:
     bool deleteSong(const Song &s);
     PlayList operator+(const Song &s);
     PlayList operator-(const Song &s);
+    PlayList operator=(const PlayList &playlist);
 private:
     Song * playlist = (Song*)calloc(2 , sizeof(Song));
     int songIndex = 0;
